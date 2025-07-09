@@ -1,4 +1,4 @@
-import { createSlice, createSelector } from '@reduxjs/toolkit';
+import { createSlice, createSelector, PayloadAction } from '@reduxjs/toolkit';
 import { TConstructorIngredient, TIngredient } from '../../utils/types';
 import { RootState } from '../store';
 import { getIngredients } from './ingredientsActions';
@@ -20,7 +20,61 @@ const initialState: ingredientsState = {
 const ingredientsSlice = createSlice({
   name: 'ingredients',
   initialState,
-  reducers: {},
+  reducers: {
+    addIngredient(state, action: PayloadAction<TIngredient>) {
+      const ingredient = action.payload;
+
+      if (ingredient.type === 'bun') {
+        state.constructorItems = state.constructorItems.filter(
+          (item) => item.type !== 'bun'
+        );
+      }
+
+      const foundItem = state.ingredients.find(
+        (item) => item._id === ingredient._id
+      );
+
+      if (foundItem) {
+        state.constructorItems.push({
+          ...foundItem,
+          id: ingredient._id + '-' + (crypto as any).randomUUID()
+        });
+      }
+    },
+    removeIngredient(
+      state,
+      action: PayloadAction<TConstructorIngredient['id']>
+    ) {
+      state.constructorItems = state.constructorItems.filter(
+        (item) => item.id !== action.payload
+      );
+    },
+    riseItem(state, action: PayloadAction<TConstructorIngredient['id']>) {
+      const id = action.payload;
+      const index = state.constructorItems.findIndex((item) => item.id === id);
+      if (index > 0) {
+        [state.constructorItems[index - 1], state.constructorItems[index]] = [
+          state.constructorItems[index],
+          state.constructorItems[index - 1]
+        ];
+      }
+    },
+
+    lowerItem(state, action: PayloadAction<TConstructorIngredient['id']>) {
+      const id = action.payload;
+      const index = state.constructorItems.findIndex((item) => item.id === id);
+      if (index >= 0 && index < state.constructorItems.length - 1) {
+        [state.constructorItems[index], state.constructorItems[index + 1]] = [
+          state.constructorItems[index + 1],
+          state.constructorItems[index]
+        ];
+      }
+    },
+
+    clearConstructor(state) {
+      state.constructorItems = [];
+    }
+  },
 
   extraReducers: (builder) => {
     builder
@@ -70,5 +124,13 @@ export const constructorBunSelector = (state: RootState) =>
 
 export const constructorIngredientsSelector = (state: RootState) =>
   state.ingredients.constructorItems.filter((item) => item.type !== 'bun');
+
+export const {
+  addIngredient,
+  removeIngredient,
+  riseItem,
+  lowerItem,
+  clearConstructor
+} = ingredientsSlice.actions;
 
 export const reducer = ingredientsSlice.reducer;
