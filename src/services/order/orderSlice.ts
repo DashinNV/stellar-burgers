@@ -52,8 +52,6 @@ const orderSlice = createSlice({
 
 export const ordersSelector = (state: RootState) => state.order.orders;
 
-export const ordersIsLoading = (state: RootState) => state.order.isLoading;
-
 export const orderIsSending = (state: RootState) => state.order.sendingOrder;
 
 export const lastOrder = (state: RootState) => state.order.lastOrder;

@@ -104,6 +104,14 @@ const App = () => {
               </Modal>
             }
           />
+          <Route
+            path='/feed/:orderId'
+            element={
+              <Modal title={'Детали заказа'} onClose={() => navigate(-1)}>
+                <OrderInfo />
+              </Modal>
+            }
+          />
         </Routes>
       )}
     </div>
