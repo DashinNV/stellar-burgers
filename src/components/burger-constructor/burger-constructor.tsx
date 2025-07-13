@@ -2,30 +2,47 @@ import { FC, useMemo } from 'react';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import {
+  clearConstructor,
   constructorBunSelector,
   constructorIngredientsSelector
 } from '../../services/ingredients/ingredientsSlice';
-
-import { useSelector } from '../../services/store';
+import {
+  orderIsSending,
+  lastOrder,
+  clearLastOrder
+} from '../../services/order/orderSlice';
+import { postOrder } from '../../services/order/orderAction';
+import { AppDispatch, useSelector } from '../../services/store';
+import { useDispatch } from 'react-redux';
 
 export const BurgerConstructor: FC = () => {
-  /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
-  const bun = useSelector(constructorBunSelector);
-  const ingredients = useSelector(constructorIngredientsSelector);
+  const dispatch = useDispatch<AppDispatch>();
 
   const constructorItems = {
-    bun: bun,
-    ingredients: ingredients
+    bun: useSelector(constructorBunSelector),
+    ingredients: useSelector(constructorIngredientsSelector)
   };
 
-  const orderRequest = false;
+  const orderRequest = useSelector(orderIsSending);
 
-  const orderModalData = null;
+  const orderModalData = useSelector(lastOrder);
 
   const onOrderClick = () => {
-    if (!constructorItems.bun || orderRequest) return;
+    if (!constructorItems.bun || orderRequest) {
+      if (!constructorItems.bun) {
+        alert('Необходимо выбрать булку!');
+      }
+      return;
+    }
+    const orderArray: string[] = [];
+    orderArray.push(constructorItems.bun._id);
+    constructorItems.ingredients.forEach((item) => orderArray.push(item._id));
+    dispatch(postOrder(orderArray)).then(() => dispatch(clearConstructor()));
   };
-  const closeOrderModal = () => {};
+  const closeOrderModal = () => {
+    console.log('Modal close clicked');
+    dispatch(clearLastOrder());
+  };
 
   const price = useMemo(
     () =>
