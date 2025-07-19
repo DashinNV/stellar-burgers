@@ -40,6 +40,14 @@ export const fetchWithRefresh = async <T>(
   options: RequestInit
 ) => {
   try {
+    const token =
+      localStorage.getItem('accessToken') || getCookie('accessToken');
+
+    const headers = new Headers(options.headers || {});
+    if (token) {
+      headers.set('token', `Bearer ${token}`);
+    }
+
     const res = await fetch(url, options);
     return await checkResponse<T>(res);
   } catch (err) {

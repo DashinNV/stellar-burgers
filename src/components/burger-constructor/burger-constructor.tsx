@@ -14,9 +14,14 @@ import {
 import { postOrder } from '../../services/order/orderAction';
 import { AppDispatch, useSelector } from '../../services/store';
 import { useDispatch } from 'react-redux';
+import { getUserInfo } from '../../services/user/userAction';
+import { userAuthSelector } from '../../services/user/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+  const isAuth = useSelector(userAuthSelector);
 
   const constructorItems = {
     bun: useSelector(constructorBunSelector),
@@ -34,13 +39,18 @@ export const BurgerConstructor: FC = () => {
       }
       return;
     }
+
+    if (!isAuth) {
+      navigate('/login');
+      return;
+    }
+
     const orderArray: string[] = [];
     orderArray.push(constructorItems.bun._id);
     constructorItems.ingredients.forEach((item) => orderArray.push(item._id));
     dispatch(postOrder(orderArray)).then(() => dispatch(clearConstructor()));
   };
   const closeOrderModal = () => {
-    console.log('Modal close clicked');
     dispatch(clearLastOrder());
   };
 

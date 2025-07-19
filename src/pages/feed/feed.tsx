@@ -16,7 +16,7 @@ export const Feed: FC = () => {
   }, [dispatch]);
 
   if (isLoading) return <Preloader />;
-  
+
   return (
     <FeedUI
       orders={orders}

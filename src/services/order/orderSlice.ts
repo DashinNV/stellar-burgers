@@ -3,7 +3,7 @@ import { RootState } from '../store';
 import { TOrder } from '@utils-types';
 import { postOrder } from '../order/orderAction';
 
-interface orderState {
+interface OrderState {
   orders: TOrder[];
   total: number;
   totalToday: number;
@@ -14,7 +14,7 @@ interface orderState {
   sendingOrder: boolean;
 }
 
-const initialState: orderState = {
+const initialState: OrderState = {
   orders: [],
   total: 0,
   totalToday: 0,

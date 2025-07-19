@@ -3,23 +3,29 @@ import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
 import { useSelector } from 'react-redux';
-import { orderDataSelector } from '../../services/feed/feedSlice';
+import { getOrderByNumber } from '../../services/feed/feedSlice';
 import { ingredientsSelector } from '../../services/ingredients/ingredientsSlice';
 import { useParams } from 'react-router-dom';
-import { useDispatch } from '../../services/store';
+import { RootState, useDispatch } from '../../services/store';
 import { getFeedById } from '../../services/feed/feedActions';
 
 export const OrderInfo: FC = () => {
-  const orderData = useSelector(orderDataSelector);
+  const { number } = useParams<{ number: string }>();
+
+  if (!number) return <Preloader />;
+
+  const orderData = useSelector((state) =>
+    getOrderByNumber(state as RootState, Number(number))
+  );
+  console.log(orderData);
   const ingredients: TIngredient[] = useSelector(ingredientsSelector);
-  const { orderId } = useParams<{ orderId: string }>();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (orderId) {
-      dispatch(getFeedById(Number(orderId)));
+    if (number) {
+      dispatch(getFeedById(Number(number)));
     }
-  }, [dispatch, orderId]);
+  }, [dispatch, number]);
 
   /* Готовим данные для отображения */
   const orderInfo = useMemo(() => {
