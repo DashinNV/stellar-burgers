@@ -15,15 +15,14 @@ import styles from './app.module.css';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { AppHeader, IngredientDetails, OrderInfo, Modal } from '@components';
 import { ProtectedRoute } from '../protectedRoute/protected-route';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../services/store';
+import { useDispatch, useSelector } from '../../services/store';
 import { getIngredients } from '../../services/ingredients/ingredientsActions';
 import { getFeeds } from '../../services/feed/feedActions';
 import { getUserInfo } from '../../services/user/userAction';
 import { userAuthSelector } from '../../services/user/userSlice';
 
 const App: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const background =

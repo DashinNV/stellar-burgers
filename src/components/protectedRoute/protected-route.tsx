@@ -1,8 +1,7 @@
 import React from 'react';
 import { Preloader } from '@ui';
 import { Navigate, useLocation } from 'react-router';
-import { useSelector, AppDispatch } from '../../services/store';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../services/store';
 import {
   errorSelector,
   userAuthSelector,
@@ -20,7 +19,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   onlyUnAuth = false,
   children
 }) => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
   const isAuth = useSelector(userAuthSelector);
   const isLoading = useSelector(userIsLoading);
   const error = useSelector(errorSelector);

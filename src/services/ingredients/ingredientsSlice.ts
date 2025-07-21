@@ -21,25 +21,24 @@ const ingredientsSlice = createSlice({
   name: 'ingredients',
   initialState,
   reducers: {
-    addIngredient(state, action: PayloadAction<TIngredient>) {
-      const ingredient = action.payload;
+    addIngredient: {
+      reducer: (state, action: PayloadAction<TConstructorIngredient>) => {
+        const ingredient = action.payload;
 
-      if (ingredient.type === 'bun') {
-        state.constructorItems = state.constructorItems.filter(
-          (item) => item.type !== 'bun'
-        );
-      }
+        if (ingredient.type === 'bun') {
+          state.constructorItems = state.constructorItems.filter(
+            (item) => item.type !== 'bun'
+          );
+        }
 
-      const foundItem = state.ingredients.find(
-        (item) => item._id === ingredient._id
-      );
-
-      if (foundItem) {
-        state.constructorItems.push({
-          ...foundItem,
-          id: ingredient._id + '-' + (crypto as any).randomUUID()
-        });
-      }
+        state.constructorItems.push(ingredient);
+      },
+      prepare: (ingredient: TIngredient) => ({
+        payload: {
+          ...ingredient,
+          id: `${ingredient._id}-${(crypto as any).randomUUID()}`
+        }
+      })
     },
     removeIngredient(
       state,

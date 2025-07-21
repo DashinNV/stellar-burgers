@@ -12,14 +12,12 @@ import {
   clearLastOrder
 } from '../../services/order/orderSlice';
 import { postOrder } from '../../services/order/orderAction';
-import { AppDispatch, useSelector } from '../../services/store';
-import { useDispatch } from 'react-redux';
-import { getUserInfo } from '../../services/user/userAction';
+import { useDispatch, useSelector } from '../../services/store';
 import { userAuthSelector } from '../../services/user/userSlice';
 import { useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor: FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const isAuth = useSelector(userAuthSelector);
 

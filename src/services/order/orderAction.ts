@@ -3,5 +3,5 @@ import { orderBurgerApi } from '../../utils/burger-api';
 
 export const postOrder = createAsyncThunk(
   'user/newOrder',
-  async (ingr: string[]) => await orderBurgerApi(ingr)
+  async (ingr: string[]) => orderBurgerApi(ingr)
 );

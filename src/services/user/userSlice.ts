@@ -8,7 +8,6 @@ import {
   getUserInfo,
   refreshUserToken
 } from '../user/userAction';
-import { setCookie } from '../../utils/cookie';
 
 interface UserState {
   user: TUser;
@@ -64,8 +63,6 @@ const userSlice = createSlice({
         state.isAuth = true;
         state.error = null;
         state.user = action.payload.user;
-        setCookie('accessToken', accessToken);
-        localStorage.setItem('refreshToken', refreshToken);
       })
 
       .addCase(logoutUser.pending, (state) => {
@@ -79,7 +76,6 @@ const userSlice = createSlice({
       .addCase(logoutUser.fulfilled, (state) => {
         state.isLoading = false;
         state.user = { email: '', name: '' };
-        localStorage.removeItem('refreshToken');
         state.isAuth = false;
         state.error = null;
       })
@@ -106,9 +102,8 @@ const userSlice = createSlice({
         state.isLoading = false;
         state.error = action.error.message;
       })
-      .addCase(refreshUserToken.fulfilled, (state, action) => {
+      .addCase(refreshUserToken.fulfilled, (state) => {
         state.isLoading = false;
-        localStorage.setItem('refreshToken', action.payload.refreshToken);
       });
   }
 });
