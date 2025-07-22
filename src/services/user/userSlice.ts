@@ -6,7 +6,8 @@ import {
   loginUser,
   logoutUser,
   getUserInfo,
-  refreshUserToken
+  refreshUserToken,
+  updateUserData
 } from '../user/userAction';
 
 interface UserState {
@@ -104,6 +105,19 @@ const userSlice = createSlice({
       })
       .addCase(refreshUserToken.fulfilled, (state) => {
         state.isLoading = false;
+      })
+
+      .addCase(updateUserData.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateUserData.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      })
+      .addCase(updateUserData.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.user = action.payload.user;
       });
   }
 });

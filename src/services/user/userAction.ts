@@ -18,9 +18,23 @@ export const updateUserData = createAsyncThunk(
   async (data: TRegisterData) => updateUserApi(data)
 );
 
+// export const registerUser = createAsyncThunk(
+//   'user/register',
+//   async (data: TRegisterData) => registerUserApi(data)
+// );
+
 export const registerUser = createAsyncThunk(
   'user/register',
-  async (data: TRegisterData) => registerUserApi(data)
+  async (data: TRegisterData, { rejectWithValue }) => {
+    try {
+      const response = await registerUserApi(data);
+      setCookie('accessToken', response.accessToken);
+      localStorage.setItem('refreshToken', response.refreshToken);
+      return response;
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
 );
 
 export const loginUser = createAsyncThunk(

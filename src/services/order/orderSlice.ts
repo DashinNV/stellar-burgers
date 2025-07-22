@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import { TOrder } from '@utils-types';
-import { postOrder } from '../order/orderAction';
+import { postOrder, getUserOrders } from '../order/orderAction';
 
 interface OrderState {
-  orders: TOrder[];
+  userOrders: TOrder[];
   total: number;
   totalToday: number;
   isLoading: boolean;
@@ -15,7 +15,7 @@ interface OrderState {
 }
 
 const initialState: OrderState = {
-  orders: [],
+  userOrders: [],
   total: 0,
   totalToday: 0,
   isLoading: true,
@@ -46,15 +46,32 @@ const orderSlice = createSlice({
       .addCase(postOrder.fulfilled, (state, action) => {
         state.sendingOrder = false;
         state.lastOrder = action.payload.order;
+      })
+
+      .addCase(getUserOrders.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getUserOrders.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      })
+      .addCase(getUserOrders.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.userOrders = action.payload;
       });
   }
 });
 
-export const ordersSelector = (state: RootState) => state.order.orders;
+export const userOrdersSelector = (state: RootState) => state.order.userOrders;
 
 export const orderIsSending = (state: RootState) => state.order.sendingOrder;
 
 export const lastOrder = (state: RootState) => state.order.lastOrder;
+
+export const orderIsLoading = (state: RootState) => state.order.isLoading;
+
+export const orderError = (state: RootState) => state.order.error;
 
 export const { clearLastOrder } = orderSlice.actions;
 
