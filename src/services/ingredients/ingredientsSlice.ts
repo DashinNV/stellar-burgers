@@ -10,7 +10,7 @@ interface ingredientsState {
   constructorItems: TConstructorIngredient[];
 }
 
-const initialState: ingredientsState = {
+export const initialState: ingredientsState = {
   ingredients: [],
   isLoading: true,
   error: null,

@@ -12,7 +12,7 @@ interface FeedState {
   orderData: TOrder | null;
 }
 
-const initialState: FeedState = {
+export const initialState: FeedState = {
   orders: [],
   total: 0,
   totalToday: 0,
@@ -66,10 +66,8 @@ export const getOrderByNumber = createSelector(
     (state: RootState) => state.feed.orders,
     (_: RootState, number: number) => number
   ],
-  (orders: TOrder[], number: number): TOrder | undefined => {
-    console.log(orders, number);
-    return orders.find((order) => order.number === number);
-  }
+  (orders: TOrder[], number: number): TOrder | undefined =>
+    orders.find((order) => order.number === number)
 );
 
 export const reducer = feedSlice.reducer;

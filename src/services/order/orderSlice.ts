@@ -14,7 +14,7 @@ interface OrderState {
   sendingOrder: boolean;
 }
 
-const initialState: OrderState = {
+export const initialState: OrderState = {
   userOrders: [],
   total: 0,
   totalToday: 0,
