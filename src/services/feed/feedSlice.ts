@@ -49,7 +49,15 @@ const feedSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(getFeedById.fulfilled, (state, action) => {
-        state.orderData = action.payload.orders[0];
+        const order = action.payload.orders[0];
+        state.orderData = order;
+
+        const index = state.orders.findIndex((o) => o.number === order.number);
+        if (index >= 0) {
+          state.orders[index] = order;
+        } else {
+          state.orders.push(order);
+        }
       });
   }
 });
