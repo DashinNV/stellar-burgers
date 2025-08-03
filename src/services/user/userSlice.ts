@@ -17,9 +17,14 @@ interface UserState {
   error: string | null | undefined;
 }
 
-const initialState: UserState = {
+const getInitialIsAuth = (): boolean => {
+  if (typeof window === 'undefined') return false;
+  return localStorage.getItem('refreshToken') ? true : false;
+};
+
+export const initialState: UserState = {
   user: { email: '', name: '' },
-  isAuth: localStorage.getItem('refreshToken') ? true : false,
+  isAuth: getInitialIsAuth(),
   isLoading: false,
   error: null
 };
@@ -40,7 +45,7 @@ const userSlice = createSlice({
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.error.message;
+        state.error = action.payload as string;
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.user = action.payload.user;

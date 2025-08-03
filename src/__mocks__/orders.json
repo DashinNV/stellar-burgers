@@ -1,0 +1,98 @@
+{
+    "success": true,
+    "orders": [
+        {
+            "_id": "688bee8ad5ca30001cffcd31",
+            "ingredients": [
+                "643d69a5c3f7b9001cfa093d",
+                "643d69a5c3f7b9001cfa0943"
+            ],
+            "status": "done",
+            "name": "Space флюоресцентный бургер",
+            "createdAt": "2025-07-31T22:30:34.451Z",
+            "updatedAt": "2025-07-31T22:30:35.731Z",
+            "number": 85520
+        },
+        {
+            "_id": "688bedb6d5ca30001cffcd30",
+            "ingredients": [
+                "643d69a5c3f7b9001cfa093d",
+                "643d69a5c3f7b9001cfa093e",
+                "643d69a5c3f7b9001cfa093d"
+            ],
+            "status": "done",
+            "name": "Флюоресцентный люминесцентный бургер",
+            "createdAt": "2025-07-31T22:27:02.169Z",
+            "updatedAt": "2025-07-31T22:27:03.576Z",
+            "number": 85519
+        },
+        {
+            "_id": "688bed9fd5ca30001cffcd2e",
+            "ingredients": [
+                "643d69a5c3f7b9001cfa093c",
+                "643d69a5c3f7b9001cfa093f"
+            ],
+            "status": "done",
+            "name": "Краторный бессмертный бургер",
+            "createdAt": "2025-07-31T22:26:39.454Z",
+            "updatedAt": "2025-07-31T22:26:41.521Z",
+            "number": 85518
+        },
+        {
+            "_id": "688bed72d5ca30001cffcd2d",
+            "ingredients": [
+                "643d69a5c3f7b9001cfa093d",
+                "643d69a5c3f7b9001cfa0943"
+            ],
+            "status": "done",
+            "name": "Space флюоресцентный бургер",
+            "createdAt": "2025-07-31T22:25:54.703Z",
+            "updatedAt": "2025-07-31T22:25:56.941Z",
+            "number": 85517
+        },
+        {
+            "_id": "688beab1d5ca30001cffcd2a",
+            "ingredients": [
+                "643d69a5c3f7b9001cfa093c",
+                "643d69a5c3f7b9001cfa0942",
+                "643d69a5c3f7b9001cfa0943",
+                "643d69a5c3f7b9001cfa0944",
+                "643d69a5c3f7b9001cfa093c"
+            ],
+            "status": "done",
+            "name": "Краторный space spicy традиционный-галактический бургер",
+            "createdAt": "2025-07-31T22:14:09.603Z",
+            "updatedAt": "2025-07-31T22:14:10.364Z",
+            "number": 85516
+        },
+        {
+            "_id": "688bea61d5ca30001cffcd28",
+            "ingredients": [
+                "643d69a5c3f7b9001cfa093c",
+                "643d69a5c3f7b9001cfa0946",
+                "643d69a5c3f7b9001cfa0946",
+                "643d69a5c3f7b9001cfa093c"
+            ],
+            "status": "done",
+            "name": "Краторный минеральный бургер",
+            "createdAt": "2025-07-31T22:12:49.932Z",
+            "updatedAt": "2025-07-31T22:12:50.692Z",
+            "number": 85515
+        },
+        {
+            "_id": "688be5cfd5ca30001cffcd21",
+            "ingredients": [
+                "643d69a5c3f7b9001cfa093d",
+                "643d69a5c3f7b9001cfa093e",
+                "643d69a5c3f7b9001cfa093d"
+            ],
+            "status": "done",
+            "name": "Флюоресцентный люминесцентный бургер",
+            "createdAt": "2025-07-31T21:53:19.085Z",
+            "updatedAt": "2025-07-31T21:53:19.790Z",
+            "number": 85514
+        }
+    ],
+    "total": 85189,
+    "totalToday": 75
+}
